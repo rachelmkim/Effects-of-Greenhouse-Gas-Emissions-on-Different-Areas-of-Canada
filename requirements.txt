@@ -1,0 +1,14 @@
+# CSC110 Fall 2020: Python libraries in Final Project.
+
+# Testing and code checking
+hypothesis
+pytest
+python-ta
+
+# Data Reading
+os
+csv
+
+# Graphics and data visualization
+plotly
+pygame==2.0.0.dev10
