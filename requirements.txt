@@ -6,6 +6,7 @@ pytest
 python-ta
 
 # Graphics and data visualization
+plotly
 plotly.express
 plotly.graph_objects
 plotly.subplots
