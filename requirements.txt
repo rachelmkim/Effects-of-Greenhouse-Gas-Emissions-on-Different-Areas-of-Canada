@@ -5,10 +5,18 @@ hypothesis
 pytest
 python-ta
 
-# Data Reading
+# Data Reapading
 os
 csv
+json
+ast
 
 # Graphics and data visualization
-plotly
+plotly.express
 pygame==2.0.0.dev10
+
+# User interface
+tkinter
+PIL
+
+psutilPIL

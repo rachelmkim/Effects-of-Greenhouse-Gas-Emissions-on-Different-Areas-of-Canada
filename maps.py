@@ -50,10 +50,11 @@ def plot_emissions_map(geojson_map_file_name: str, type_of_map: str, dataframe: 
                         locations=[province_id_map[province] for province in PROVINCE_LIST],
                         geojson=province_borders,
                         color=year,
-                        scope='north america')
+                        scope='north america',
+                        title='CO2 Emissions ' + type_of_map + ' (Units: kilotons)')
     fig.update_geos(fitbounds='geojson', visible=False)
-    # fig.show()
-    fig.write_image('emissions_map_' + type_of_map + '.png', width=1000)
+    fig.show()
+    # fig.write_image('emissions_map_' + type_of_map + '.png', width=1000)
 
 
 def plot_temperatures_map(geojson_map_file_name: str, type_of_map: str, dataframe: dict,
@@ -76,10 +77,11 @@ def plot_temperatures_map(geojson_map_file_name: str, type_of_map: str, datafram
                          color=year,
                          scope='north america',
                          size_max=100,
-                         center=dict(lon=-96.4835, lat=62.2400))
+                         center=dict(lon=-96.4835, lat=62.2400),
+                         title='Daily Mean Temperatures ' + type_of_map + ' (Units: Celsius)')
     fig.update_geos(fitbounds='geojson', visible=True)
-    # fig.show()
-    fig.write_image('daily_temperatures_map_' + type_of_map + '.png', width=1000)
+    fig.show()
+    # fig.write_image('daily_temperatures_map_' + type_of_map + '.png', width=1000)
 
 
 ###############################
@@ -179,7 +181,7 @@ def calculate_temp_difference(raw_data: Dict[Any, List[Any]]) -> Dict[Any, List[
 
 
 def remove_unusable_values(id_to_coords: Dict[str, List[float]],
-                           temp_data: Dict[str, Dict[int, float]]) -> None:
+                           temp_data: Dict[str, Dict[str, float]]) -> None:
     """Remove the key and the value associated to it in both id_to_coords and temp_data that are
     not in both dictionaries.
 
@@ -211,7 +213,7 @@ def remove_unusable_values(id_to_coords: Dict[str, List[float]],
 
 
 def reformat_daily_temps_data(id_to_coords: Dict[str, List[float]],
-                              temp_data: Dict[str, Dict[int, float]]) -> Dict[Any, List[Any]]:
+                              temp_data: Dict[str, Dict[str, float]]) -> Dict[Any, List[Any]]:
     """Return the formatted version of the daily temperatures data given id_to_coords and temp_data.
     The keys of the new dictionary will contain the years between 1990 and 2018 inclusive, as well
     as 'id', 'latitudes', and 'longitudes'. The values will be the average annual temperatures

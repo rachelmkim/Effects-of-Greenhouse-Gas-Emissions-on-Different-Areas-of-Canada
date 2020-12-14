@@ -1,5 +1,7 @@
 import data_reading
 import maps
+import plotly
+
 
 PROVINCE_GEOJSON_FILE_NAME = 'canada_provinces.geojson'
 WEATHER_STATIONS_GEOJSON_FILE_NAME = 'weather_stations.geojson'
@@ -16,9 +18,9 @@ temperatures_difference_data_frame = maps.calculate_temp_difference(
 
 year = int(input('Enter a year between 1991 and 2018: '))
 
-maps.plot_emissions_map(PROVINCE_GEOJSON_FILE_NAME, 'raw_data', emissions_data_frame,
+maps.plot_emissions_map(PROVINCE_GEOJSON_FILE_NAME, 'Raw Data', emissions_data_frame,
                         province_id_map, year)
-maps.plot_emissions_map(PROVINCE_GEOJSON_FILE_NAME, 'difference', emissions_difference_data_frame,
+maps.plot_emissions_map(PROVINCE_GEOJSON_FILE_NAME, 'Difference', emissions_difference_data_frame,
                         province_id_map, year)
-maps.plot_temperatures_map(PROVINCE_GEOJSON_FILE_NAME, 'difference',
+maps.plot_temperatures_map(PROVINCE_GEOJSON_FILE_NAME, 'Difference',
                            temperatures_difference_data_frame, year)
