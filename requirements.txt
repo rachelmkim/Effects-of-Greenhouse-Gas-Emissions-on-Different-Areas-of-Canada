@@ -10,6 +10,7 @@ os
 csv
 json
 ast
+math
 
 # Graphics and data visualization
 plotly.express

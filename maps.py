@@ -21,6 +21,7 @@ This file is Copyright (c) 2020 Dana Alshekerchi, Nehchal Kalsi, Rachel Kim, Kat
 from typing import Dict, Any, List
 import json
 import ast
+import math
 import plotly.express as px
 
 PROVINCE_LIST = ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
@@ -46,13 +47,29 @@ def plot_emissions_map(geojson_map_file_name: str, type_of_map: str, dataframe: 
 
     province_borders = json.load(open(geojson_map_file_name, 'r'))
     # dataframe is in alphabetical order because of the way the file is structured
+    colours = dataframe[year]
+    # convert data into a logarithmic scale if we are looking at the raw data
+    if type_of_map == 'Raw Data':
+        minimum_value = min(dataframe[year])
+        colours = []
+        for emissions in dataframe[year]:
+            if emissions <= 0:
+                list.append(colours, math.log10(emissions + abs(minimum_value) + 0.00000000001))
+            else:
+                list.append(colours, math.log10(emissions))
+    tickvals = list(range(math.floor(min(colours)), math.ceil(max(colours))))
     fig = px.choropleth(dataframe,
                         locations=[province_id_map[province] for province in PROVINCE_LIST],
                         geojson=province_borders,
-                        color=year,
+                        color=colours,
+                        hover_data=[year],
                         scope='north america',
                         title='CO2 Emissions ' + type_of_map + ' (Units: kilotons)')
     fig.update_geos(fitbounds='geojson', visible=False)
+    if type_of_map == 'Raw Data':
+        fig.update_layout(coloraxis_colorbar=dict(title="SCALE", tickvals=tickvals,
+                                                  ticktext=[math.pow(10, tickval)
+                                                            for tickval in tickvals]))
     fig.show()
     # fig.write_image('emissions_map_' + type_of_map + '.png', width=1000)
 
@@ -68,18 +85,30 @@ def plot_temperatures_map(geojson_map_file_name: str, type_of_map: str, datafram
     year specified.
     """
     province_borders = json.load(open(geojson_map_file_name, 'r'))
+    # convert data into a logarithmic scale
+    log_values = []
+    for temp in dataframe[year]:
+        if temp <= 0:
+            list.append(log_values, math.log10(0.00000000001))
+        else:
+            list.append(log_values, math.log10(temp))
+    tickvals = list(range(math.floor(min(log_values)), math.ceil(max(log_values))))
     fig = px.scatter_geo(dataframe,
                          lat='latitudes',
                          lon='longitudes',
                          geojson=province_borders,
                          # locations='id',
                          locationmode='country names',
-                         color=year,
+                         color=log_values,
+                         hover_data=[year],
                          scope='north america',
                          size_max=100,
                          center=dict(lon=-96.4835, lat=62.2400),
                          title='Daily Mean Temperatures ' + type_of_map + ' (Units: Celsius)')
     fig.update_geos(fitbounds='geojson', visible=True)
+    fig.update_layout(coloraxis_colorbar=dict(title="SCALE", tickvals=tickvals,
+                                              ticktext=[math.pow(10, tickval)
+                                                        for tickval in tickvals]))
     fig.show()
     # fig.write_image('daily_temperatures_map_' + type_of_map + '.png', width=1000)
 
@@ -241,7 +270,8 @@ if __name__ == '__main__':
 
     python_ta.check_all(config={
         # the names (strs) of imported modules
-        'extra-imports': ['json', 'plotly.express', 'python_ta', 'python_ta.contracts', 'ast'],
+        'extra-imports': ['json', 'plotly.express', 'python_ta', 'python_ta.contracts', 'ast',
+                          'math'],
         # the names (strs) of functions that call print/open/input
         'allowed-io': ['plot_emissions_map', 'plot_temperatures_map', 'format_province_id_map',
                        'format_temps'],
