@@ -2,7 +2,8 @@
 
 Description
 ===============================
-This module uses the input data to plot carbon dioxide emissions.
+This module uses the input data to plot carbon dioxide emissions
+and temperature anomalies as line graphs using plotly.
 
 Copyright and Usage Information
 ===============================
@@ -26,6 +27,14 @@ def combine_plots(gas_data: List[List[Any]], temp_data: Dict[str, List[float]], 
 
     The plot opens in a browser window.
     Carbon dioxide uses the primary y-axis and temperature uses the secondary y-axis.
+
+    Preconditions:
+        - province != ''
+        - province in [x[1] for x in gas_data]
+        - temp_data != {}
+        - gas_data != {}
+        - temp_data is a dictionary with years as keys and list of daily temperatures for that year,
+         in the returned format from user_interface.read_temp_data()
     """
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
@@ -65,7 +74,9 @@ def province_sort(given_data: List[List[Any]], province: str) -> List[List[Any]]
     """
     Return a filtered list of all the lists that contain the province name.
 
-    Precondition:
+    Preconditions:
+        - given_data != {}
+        - province != ''
         - province in [x[1] for x in given_data]
     """
     new_data = [x for x in given_data if x[1] == province]
@@ -75,6 +86,11 @@ def province_sort(given_data: List[List[Any]], province: str) -> List[List[Any]]
 def values_for_co2_plot(given_data: List[List[Any]], province: str) -> List[List[Any]]:
     """
     Return the values required to plot carbon dioxide data.
+
+    Preconditions:
+        - given_data != {}
+        - province != ''
+        - province in [x[1] for x in given_data]
     """
     data = province_sort(given_data, province)
 
@@ -91,7 +107,7 @@ def temp_anomaly(temp_data: Dict[str, List[float]]) -> List[List[Any]]:
     Preconditions:
         - temp_data != {}
         - temp_data is a dictionary with years as keys and list of daily temperatures for that year,
-         in the returned format from data_reading.read_daily_mean_temps_one_file()
+         in the returned format from user_interface.read_temp_data()
     """
     new_data = []
     for year in temp_data:
@@ -115,6 +131,11 @@ def temp_anomaly(temp_data: Dict[str, List[float]]) -> List[List[Any]]:
 def values_for_temp_plot(temp_data: Dict[str, List[float]]) -> List[List[Any]]:
     """
     Return the values required to plot temperature data.
+
+    Preconditions:
+        - temp_data != {}
+        - temp_data is a dictionary with years as keys and list of daily temperatures for that year,
+         in the returned format from user_interface.read_temp_data()
     """
     data = temp_anomaly(temp_data)
 
