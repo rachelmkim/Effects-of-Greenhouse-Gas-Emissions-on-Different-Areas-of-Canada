@@ -21,7 +21,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-def combine_plots(gas_data: List[List[Any]], temp_data: Dict[str, List[float]], province: str) -> None:
+def combine_plots(gas_data: List[List[Any]], temp_data: Dict[str, List[float]],
+                  province: str, station: str) -> None:
     """
     Return a combined plot for carbon dioxide data and temperature data for the given province.
 
@@ -55,7 +56,8 @@ def combine_plots(gas_data: List[List[Any]], temp_data: Dict[str, List[float]], 
                   row=1, col=1)
 
     # set up axes names and title
-    fig.update_layout(title_text=f"Carbon dioxide levels and anomaly temperatures for {province}",
+    fig.update_layout(title_text=f"Carbon dioxide levels and anomaly temperatures for"
+                                 f" {station}, {province}",
                       paper_bgcolor='#FFE4AE',  # same colors
                       plot_bgcolor='rgb(255,228,174)'
                       )
@@ -145,22 +147,19 @@ def values_for_temp_plot(temp_data: Dict[str, List[float]]) -> List[List[Any]]:
 
 
 if __name__ == '__main__':
-    # import python_ta
-    #
-    # python_ta.check_all(config={
-    #     # the names (strs) of imported modules
-    #     'extra-imports': ['os', 'csv', 'python_ta', 'python_ta.contracts'],
-    #     # the names (strs) of functions that call print/open/input
-    #     'allowed-io': ['read_ghg_emissions', 'read_daily_mean_temps_all_files',
-    #                    'read_daily_mean_temps_one_file'],
-    #     'max-line-length': 100,
-    #     'disable': ['R1705', 'C0200']
-    # })
-    #
-    # import python_ta.contracts
-    #
-    # python_ta.contracts.DEBUG_CONTRACTS = False
-    # python_ta.contracts.check_all_contracts()
+    import python_ta
+
+    python_ta.check_all(config={
+        # the names (strs) of imported modules
+        'extra-imports': ['typing', 'plotly.graph_objects', 'python_ta',
+                          'python_ta.contracts', 'plotly.subplots'],
+        # the names (strs) of functions that call print/open/input
+        'allowed-io': [],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
+
+    import python_ta.contracts
 
     import doctest
 
