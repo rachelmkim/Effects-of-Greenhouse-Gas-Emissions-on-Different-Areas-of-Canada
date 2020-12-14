@@ -11,11 +11,13 @@ pygame==2.0.0.dev10
 
 # User interface
 Pillow
+
+# Imports
 # tkinter
-#PIL
+# PIL
 # psutilPIP
 
-# Data Reapading
+# Data Reading
 # os
 # csv
 # json
