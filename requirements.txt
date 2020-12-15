@@ -7,12 +7,11 @@ python-ta
 
 # Graphics and data visualization
 plotly
-plotly.express
-plotly.graph_objects
-plotly.subplots
+plotly-express
 
 # User interface
 Pillow
+PIL
 
 # Imports
 # tkinter
@@ -20,6 +19,7 @@ Pillow
 # psutilPIP
 
 # Data Reading
+pandas
 # os
 # csv
 # json
