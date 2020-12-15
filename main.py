@@ -132,7 +132,8 @@ def map_open() -> None:
             maps.plot_temperatures_map(province_geojson_file_name, 'Difference',
                                        temperatures_difference_data_frame, year)
             # If the year is not between 1991 and 2018
-        raise ValueError
+        else:
+            raise ValueError
     except ValueError:
         YEAR_RANGE_LABEL.config(text='Wrong input. \n Enter year \n(1991 - 2018)',
                                 bg='#FFE4AE', fg='#800000')
