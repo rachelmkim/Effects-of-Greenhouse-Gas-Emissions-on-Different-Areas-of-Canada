@@ -13,9 +13,10 @@ plotly-express
 Pillow
 PIL
 
+### The libraries that are commented out should stay commented out ###
+
 # Imports
 # tkinter
-# PIL
 # psutilPIP
 
 # Data Reading
