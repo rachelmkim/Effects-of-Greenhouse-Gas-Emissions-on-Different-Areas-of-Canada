@@ -197,7 +197,7 @@ def creators_page() -> None:
     creators_window.title('Creators')
     creators_window.update_idletasks()
     width = 575
-    height = 450
+    height = 350
     x = (creators_window.winfo_screenwidth() // 2) - (width // 2)
     y = (creators_window.winfo_screenheight() // 2) - (height // 2)
     creators_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
@@ -210,7 +210,7 @@ def creators_page() -> None:
     # Opens the image for the title
     creator_image = Image.open('creator_image.png')
     # Resizes the image
-    resized = creator_image.resize((600, 350), Image.ANTIALIAS)
+    resized = creator_image.resize((600, 250), Image.ANTIALIAS)
     new_creator = ImageTk.PhotoImage(resized)
     # Displays the image as a label
     creator_label = Label(creators_window, image=new_creator, borderwidth=0)
