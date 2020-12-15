@@ -124,12 +124,12 @@ def map_open() -> None:
     try:
         year = int(YEAR_SELECT.get())
         if 1991 <= year <= 2018:
-            maps.plot_emissions_map(province_geojson_file_name, 'raw_data', emissions_data_frame,
+            maps.plot_emissions_map(province_geojson_file_name, 'Raw Data', emissions_data_frame,
                                     province_id_map, year)
             maps.plot_emissions_map(province_geojson_file_name,
-                                    'difference', emissions_difference_data_frame,
+                                    'Difference', emissions_difference_data_frame,
                                     province_id_map, year)
-            maps.plot_temperatures_map(province_geojson_file_name, 'difference',
+            maps.plot_temperatures_map(province_geojson_file_name, 'Difference',
                                        temperatures_difference_data_frame, year)
             # If the year is not between 1991 and 2018
         raise ValueError
